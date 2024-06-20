@@ -28,12 +28,14 @@ namespace ControlePortaria.Repository
        
         public void Update(Pessoa pessoa)
         {
-            throw new NotImplementedException();
+            _context.Update(pessoa);
+            Save();
         }
         public Pessoa Edit(int id)
         {
-            var pessoa = _context.Pessoas.FirstOrDefault(x => x.PessoaId == id);
-            return pessoa;
+            var pessoa = GetPessoaById(id);
+
+			return pessoa;
         }
 
         public void Delete(int id)

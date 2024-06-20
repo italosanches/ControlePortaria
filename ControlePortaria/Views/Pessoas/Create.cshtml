@@ -1,6 +1,6 @@
 ﻿@model ControlePortaria.Models.Pessoa
 @{
-	ViewData["Title"] = "Pessoas";
+	ViewData["Title"] = "Cadastro Pessoa";
 }
 
 
@@ -14,38 +14,7 @@
 </head>
 <body>
 
-<h4>Pessoa</h4>
-<div class="row mt-5">
-	<div class="col-md-4 col-sm-4 col-lg-4">
-		<form asp-action="Create" asp-controller="Pessoas"  method="post">
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="row">
-				<div class="col">
-					<div class="form-group">
-						<label asp-for="PessoaNome" class="control-label"></label>
-						<input asp-for="PessoaNome" class="form-control" />
-						<span asp-validation-for="PessoaNome" class="text-danger"></span>
-					</div>
-				</div>
-				<div class="col">
-					<div class="form-group">
-						<label asp-for="PessoaTelefone" class="control-label"></label>
-						<input asp-for="PessoaTelefone" class="form-control" />
-						<span asp-validation-for="PessoaTelefone" class="text-danger"></span>
-					</div>
-				</div>
-			</div>
-			<div class="form-group mt-3">
-				<input type="submit" value="Create" class="btn btn-primary" />
-			</div>
-
-		</form>
-	</div>
-</div>
-
-<div>
-	<a asp-action="ListPessoas">Back to List</a>
-</div>
+	 <partial name="_PessoaResumo" for ="@Model" />
 
 
 </body>

@@ -12,25 +12,31 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.PessoaNome)
-        </th>
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.PessoaTelefone)
+            </th>
+            <th>
+
             </th>
         </tr>
         
         @foreach(var pessoa in Model)
         {
             <tr>
+              
                 <td >
                     @pessoa.PessoaNome
                 </td>
                 <td >
                     @pessoa.PessoaTelefone
                 </td>
-                    @*   <form asp-controller="Pessoa" asp-action="Detalhes" method="post">
-                                <input type="hidden" name="id" value="@pessoa.Id" />
-                                <button type="submit">Detalhes</button>
-                            </form> *@
+                <td>
+                      <form asp-controller="Pessoas" asp-action="Edit" method="get">
+                                <input type="hidden" name="id" value="@pessoa.PessoaId" />
+                                <button type="submit">Editar</button>
+                       </form>
+                 </td>
              </tr>
         }
         

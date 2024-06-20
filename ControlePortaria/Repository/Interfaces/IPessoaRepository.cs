@@ -11,7 +11,7 @@ namespace ControlePortaria.Repository.Interfaces
 
         public void Update(Pessoa pessoa);
 
-        public Pessoa  Edit(int id);
+        public Pessoa Edit(int id);
 
         public void Delete(int id);
 

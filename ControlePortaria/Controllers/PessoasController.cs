@@ -28,8 +28,8 @@ namespace ControlePortaria.Controllers
         }
         public IActionResult Create()
         {
-
-            return View();
+			
+			return View();
         }
         [HttpPost]
         public IActionResult Create([Bind("PessoaNome,PessoaTelefone")] Pessoa pessoa) // bind = dados que a req ira mapear
@@ -41,13 +41,38 @@ namespace ControlePortaria.Controllers
                 _pessoaRepository.Create(pessoa);
                 _pessoaRepository.Save(); // Salvar alterações no banco de dados
 
-                return RedirectToAction("ListPessoas"); // Redirecionar para a lista de pessoas após o cadastro
+                return RedirectToAction("List"); // Redirecionar para a lista de pessoas após o cadastro
             }
-            return View("CreatePessoa", pessoa);
+            return View("Create", pessoa);
 
         }
 
-       
+        [HttpGet]
+        public IActionResult Edit(int id)
+		{
+			
+			var pessoa = _pessoaRepository.Edit(id);
 
-    }
+			return View(pessoa);	            
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id,[Bind("PessoaNome,PessoaTelefone")] Pessoa pessoa)
+        {
+           
+            var pessoaUpdate = _pessoaRepository.GetPessoaById(id);
+            if(pessoaUpdate != null) 
+            
+            {
+                _pessoaRepository.Update(pessoaUpdate);
+
+			}
+
+            return View();
+        }
+
+
+
+
+	}
 }
