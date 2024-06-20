@@ -1,5 +1,7 @@
 ﻿@model ControlePortaria.Models.Pessoa
-
+@{
+	ViewData["Title"] = "Pessoas";
+}
 
 
 
@@ -13,7 +15,6 @@
 <body>
 
 <h4>Pessoa</h4>
-<hr />
 <div class="row mt-5">
 	<div class="col-md-4 col-sm-4 col-lg-4">
 		<form asp-action="Create" asp-controller="Pessoas"  method="post">
@@ -45,7 +46,7 @@
 <div>
 	<a asp-action="ListPessoas">Back to List</a>
 </div>
-</table>
+
 
 </body>
 </html>

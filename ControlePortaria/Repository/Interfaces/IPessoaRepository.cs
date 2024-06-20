@@ -8,6 +8,13 @@ namespace ControlePortaria.Repository.Interfaces
 
         Pessoa GetPessoaById(int Pessoaid);
         public void Create(Pessoa pessoa);
+
+        public void Update(Pessoa pessoa);
+
+        public Pessoa  Edit(int id);
+
+        public void Delete(int id);
+
         void Save();
     }
 }
