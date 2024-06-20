@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ControlePortaria.Models.Pessoa>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Pessoas</title>
+</head>
+<body>
+    <table class="table-primary">
+        <tr class="table-primary">
+            <th class="table-primary">
+                @Html.DisplayNameFor(model => model.PessoaNome)
+        </th>
+            <th class ="table-primary">
+                @Html.DisplayNameFor(model => model.PessoaTelefone)
+            </th>
+        </tr>
+        @foreach(var pessoa in Model)
+        {
+            <td class="table-primary">
+                @pessoa.PessoaNome
+            </td>
+            <td class="table-primary">
+                @pessoa.PessoaTelefone
+            </td>
+
+        }
+    </table>
+   
+</body>
+</html>
