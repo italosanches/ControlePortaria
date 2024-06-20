@@ -20,3 +20,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.form-cadastro-Pessoa{
+    display: flex;
+    gap: 10px;
+}

@@ -7,7 +7,7 @@ namespace ControlePortaria.Repository.Interfaces
         IEnumerable<Pessoa> Pessoas { get; }
 
         Pessoa GetPessoaById(int Pessoaid);
-        public void CreatePessoa(Pessoa pessoa);
+        public void Create(Pessoa pessoa);
         void Save();
     }
 }

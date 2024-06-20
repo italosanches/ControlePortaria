@@ -20,7 +20,7 @@ namespace ControlePortaria.Repository
             
         }
 
-        public void CreatePessoa(Pessoa pessoa) 
+        public void Create(Pessoa pessoa) 
         { 
             _context.Pessoas.Add(pessoa);
             

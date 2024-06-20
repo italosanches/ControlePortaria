@@ -8,25 +8,29 @@
     <title>Pessoas</title>
 </head>
 <body>
-    <table class="table-primary">
-        <tr class="table-primary">
-            <th class="table-primary">
+    <table class="table table-striped">
+        <tr>
+            <th>
                 @Html.DisplayNameFor(model => model.PessoaNome)
         </th>
-            <th class ="table-primary">
+            <th>
                 @Html.DisplayNameFor(model => model.PessoaTelefone)
             </th>
         </tr>
+        
         @foreach(var pessoa in Model)
         {
-            <td class="table-primary">
-                @pessoa.PessoaNome
-            </td>
-            <td class="table-primary">
-                @pessoa.PessoaTelefone
-            </td>
-
+            <tr>
+                <td >
+                    @pessoa.PessoaNome
+                </td>
+                <td >
+                    @pessoa.PessoaTelefone
+                </td>
+             </tr>
         }
+        
+
     </table>
    
 </body>
