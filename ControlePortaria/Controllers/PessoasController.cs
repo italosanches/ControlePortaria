@@ -57,10 +57,10 @@ namespace ControlePortaria.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(int id,[Bind("PessoaNome,PessoaTelefone")] Pessoa pessoa)
+        public IActionResult Edit(int id,[Bind("PessoaNome,PessoaTelefone,PessoaId")] Pessoa pessoa)
         {
            
-            var pessoaUpdate = _pessoaRepository.GetPessoaById(id);
+            var pessoaUpdate = _pessoaRepository.GetPessoaById(pessoa.PessoaId);
             if(pessoaUpdate != null) 
             
             {
