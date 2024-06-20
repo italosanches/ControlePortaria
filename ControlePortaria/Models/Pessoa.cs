@@ -5,11 +5,13 @@ namespace ControlePortaria.Models
 {
     [Table("Pessoa")]
     public class Pessoa
+
     {
+
         [Key]
         public int PessoaId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Nome é obrigatorio.")]
         [StringLength(50)]
         [Display(Name ="Nome")]
         public string PessoaNome { get; set; }

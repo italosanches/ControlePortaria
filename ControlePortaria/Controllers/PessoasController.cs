@@ -21,21 +21,30 @@ namespace ControlePortaria.Controllers
             _pessoaRepository = context;
         }
 
-        public IActionResult ListPessoas()
+        public IActionResult List()
         {
             var pessoas = _pessoaRepository.Pessoas;
             return View(pessoas);
         }
-        public IActionResult CreatePessoa()
+        public IActionResult Create()
         {
 
             return View();
         }
         [HttpPost]
-        public IActionResult Create([Bind("Nome,Email,Telefone")] Pessoa pessoa)
+        public IActionResult Create([Bind("PessoaNome,PessoaTelefone")] Pessoa pessoa) // bind = dados que a req ira mapear
         {
 
-            return View(pessoa);
+
+            if (ModelState.IsValid) // verifica se os dados estao validos
+            {
+                _pessoaRepository.Create(pessoa);
+                _pessoaRepository.Save(); // Salvar alterações no banco de dados
+
+                return RedirectToAction("ListPessoas"); // Redirecionar para a lista de pessoas após o cadastro
+            }
+            return View("CreatePessoa", pessoa);
+
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ControlePortaria.Models
 {
@@ -20,9 +21,9 @@ namespace ControlePortaria.Models
 
         [Required]
         [Precision(18, 2)]
-        [Range(minimum:0,maximum:999999,ErrorMessage ="Valor deve ser maior que {0} e menor que {1}")]
-        [Display(Description ="Kilometragem de saida")]
-        public decimal KilometragemSaida { get; set; }
+        [Range(minimum: 0, maximum: 999999, ErrorMessage = "Valor deve ser maior que {0} e menor que {1}")]
+        [Display(Description = "Kilometragem de saida")]
+        public decimal KilometragemSaida => Carro.Kilometragem;
 
         [Required]
         [Precision(18, 2)]
@@ -41,6 +42,7 @@ namespace ControlePortaria.Models
         public virtual Pessoa Pessoa{ get; set; }
 
         [Required]
+        [NotMapped]
         public virtual Carro Carro { get; set; }
     }
 }
