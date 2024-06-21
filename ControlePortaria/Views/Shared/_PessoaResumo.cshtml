@@ -8,7 +8,7 @@
 	
 		<form asp-action="@ViewBag.Modo" asp-controller="Pessoas"  method="post">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			  <input asp-for="PessoaId" />
+			  <input hidden asp-for="PessoaId" />
 			<div class="row">
 				<div class="col">
 					<div class="form-group">
