@@ -1,23 +1,35 @@
 ﻿:root {
     --primary-color: #e53da0;
-    --secondary-color: #e74c3c;
+    --secondary-color: #555BAE;
     --font-size-base: 16px;
     --padding-base: 10px;
 }
 
-.bg-rosa {
-    background-color: var(--primary-color);
-}
-.img-tamanho{
+.img-tamanho {
     width: 286px;
-    height:229px;
+    height: 229px;
 }
 
 .btn-primary, .btn-secondary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
+    box-shadow: none !important;
 }
-.btn-primary:hover , .btn-secondary:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
+
+    .btn-primary:hover, .btn-secondary:hover {
+        background-color: var( --secondary-color);
+        border-color: var( --secondary-color);
+        box-shadow: none !important;
+    }
+    .btn-primary:focus, btn-secondary:focus {
+        background-color: var(--secondary-color);
+    }
+    .btn-check:focus + .btn-secondary, .btn-secondary:focus {
+        background-color: var(--secondary-color);
+    }
+    .btn-primary:active, btn-secondary:active {
+        background-color: var(--secondary-color);
+    }
+
+    .remove-shadow {
+    }

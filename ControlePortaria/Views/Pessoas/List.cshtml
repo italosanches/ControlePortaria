@@ -20,6 +20,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.PessoaTelefone)
                 </th>
+                 <th>
+                    @Html.DisplayNameFor(model => model.PessoaStatus)
+                </th>
                 <th>
 
                 </th>
@@ -35,6 +38,9 @@
                     <td>
                         @pessoa.PessoaTelefone
                     </td>
+                         <td>
+                        @pessoa.PessoaStatus.GetDescription()
+                        </td>
                     <td>
                         <form asp-controller="Pessoas" asp-action="Edit" method="get">
                             <input type="hidden" name="id" value="@pessoa.PessoaId" />

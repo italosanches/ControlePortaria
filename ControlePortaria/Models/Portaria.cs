@@ -42,7 +42,7 @@ namespace ControlePortaria.Models
         public virtual Pessoa Pessoa{ get; set; }
 
         [Required]
-        [NotMapped]
+        
         public virtual Carro Carro { get; set; }
     }
 }

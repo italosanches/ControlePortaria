@@ -1,11 +1,11 @@
-﻿namespace ControlePortaria.Models
+﻿namespace ControlePortaria.Models.Enums
 {
     public enum Fabricante
     {
         Volkswagen,
         Toyota,
         Hyundai,
-        Ford, 
+        Ford,
         Honda,
         BMW,
         Mercedes,

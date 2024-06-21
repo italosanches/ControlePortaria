@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using ControlePortaria.Models.Enums;
 namespace ControlePortaria.Models
 {
     [Table("Pessoa")]
@@ -20,5 +20,8 @@ namespace ControlePortaria.Models
         [StringLength(15)]
         [Phone]
         public string PessoaTelefone { get; set; }
+
+        [Display(Name ="Status")]
+        public PessoaStatus PessoaStatus { get; set; } = PessoaStatus.Ativado;
     }
 }

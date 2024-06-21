@@ -9,13 +9,13 @@ using ControlePortaria.Context;
 using ControlePortaria.Models;
 using ControlePortaria.Repository.Interfaces;
 using ControlePortaria.Repository;
+using ControlePortaria.Models.Enums;
 
 namespace ControlePortaria.Controllers
 {
     public class PessoasController : Controller
     {
         private readonly IPessoaRepository _pessoaRepository;
-
         public PessoasController(IPessoaRepository context)
         {
             _pessoaRepository = context;
@@ -27,16 +27,21 @@ namespace ControlePortaria.Controllers
             return View(pessoas);
         }
         public IActionResult Create()
-        {
-			
-			return View();
+		{
+            var dictionaryStatus = EnumExtensions.ToDictionary<PessoaStatus>();
+            ViewBag.DictionaryStatus = dictionaryStatus;
+            ViewBag.Modo = "Create";
+
+            return View();
         }
         [HttpPost]
-        public IActionResult Create([Bind("PessoaNome,PessoaTelefone")] Pessoa pessoa) // bind = dados que a req ira mapear
+        public IActionResult Create([Bind("PessoaNome,PessoaTelefone,Status")] Pessoa pessoa) // bind = dados que a req ira mapear
         {
+         
 
 
-            if (ModelState.IsValid) // verifica se os dados estao validos
+
+			if (ModelState.IsValid) // verifica se os dados estao validos
             {
                 _pessoaRepository.Create(pessoa);
                 _pessoaRepository.Save(); // Salvar alterações no banco de dados

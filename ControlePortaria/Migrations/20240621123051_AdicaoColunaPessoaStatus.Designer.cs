@@ -4,6 +4,7 @@ using ControlePortaria.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControlePortaria.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240621123051_AdicaoColunaPessoaStatus")]
+    partial class AdicaoColunaPessoaStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,8 +117,6 @@ namespace ControlePortaria.Migrations
 
                     b.HasKey("PortariaID");
 
-                    b.HasIndex("CarroID");
-
                     b.HasIndex("PessoaID");
 
                     b.ToTable("Portaria");
@@ -123,19 +124,11 @@ namespace ControlePortaria.Migrations
 
             modelBuilder.Entity("ControlePortaria.Models.Portaria", b =>
                 {
-                    b.HasOne("ControlePortaria.Models.Carro", "Carro")
-                        .WithMany()
-                        .HasForeignKey("CarroID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ControlePortaria.Models.Pessoa", "Pessoa")
                         .WithMany()
                         .HasForeignKey("PessoaID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Carro");
 
                     b.Navigation("Pessoa");
                 });
