@@ -57,14 +57,20 @@ namespace ControlePortaria.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(int id,[Bind("PessoaNome,PessoaTelefone,PessoaId")] Pessoa pessoa)
+        public IActionResult Edit([Bind("PessoaNome,PessoaTelefone,PessoaId")] Pessoa pessoa)
         {
            
             var pessoaUpdate = _pessoaRepository.GetPessoaById(pessoa.PessoaId);
             if(pessoaUpdate != null) 
-            
             {
-                _pessoaRepository.Update(pessoaUpdate);
+                if (ModelState.IsValid)
+                {
+                    pessoaUpdate.PessoaNome = pessoa.PessoaNome;
+                    pessoaUpdate.PessoaTelefone = pessoa.PessoaTelefone;
+                    _pessoaRepository.Update(pessoaUpdate);
+                    return RedirectToAction("List");
+                }
+             
 
 			}
 
