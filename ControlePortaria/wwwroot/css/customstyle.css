@@ -1,0 +1,23 @@
+﻿:root {
+    --primary-color: #e53da0;
+    --secondary-color: #e74c3c;
+    --font-size-base: 16px;
+    --padding-base: 10px;
+}
+
+.bg-rosa {
+    background-color: var(--primary-color);
+}
+.img-tamanho{
+    width: 286px;
+    height:229px;
+}
+
+.btn-primary, .btn-secondary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.btn-primary:hover , .btn-secondary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
