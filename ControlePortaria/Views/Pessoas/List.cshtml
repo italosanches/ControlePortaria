@@ -20,10 +20,10 @@
                 <th>
                     @Html.DisplayNameFor(model => model.PessoaTelefone)
                 </th>
-                 <th>
+                 <th class="col-1">
                     @Html.DisplayNameFor(model => model.PessoaStatus)
                 </th>
-                <th>
+                <th class="col-2">
 
                 </th>
             </tr>
@@ -42,10 +42,17 @@
                         @pessoa.PessoaStatus.GetDescription()
                         </td>
                     <td>
-                        <form asp-controller="Pessoas" asp-action="Edit" method="get">
-                            <input type="hidden" name="id" value="@pessoa.PessoaId" />
-                            <button type="submit" class="btn btn-secondary">Editar</button>
-                        </form>
+                        <div class="d-flex gap-3">
+                            <form asp-controller="Pessoas" asp-action="Edit" method="get">
+                                <input type="hidden" name="id" value="@pessoa.PessoaId" />
+                                <button type="submit" class="btn btn-secondary">Editar</button>
+                            </form>
+                            <form asp-controller="Pessoas" asp-action="InativarPessoa" method="post">
+                                <input type="hidden" name="id" value="@pessoa.PessoaId" />
+                                <button type="submit" class="btn btn-secondary">Inativar</button>
+                            </form>
+                        </div>
+
                     </td>
                 </tr>
             }

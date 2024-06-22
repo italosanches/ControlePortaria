@@ -1,5 +1,6 @@
 ﻿using ControlePortaria.Context;
 using ControlePortaria.Models;
+using ControlePortaria.Models.Enums;
 using ControlePortaria.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 namespace ControlePortaria.Repository
@@ -16,37 +17,56 @@ namespace ControlePortaria.Repository
 
         public Pessoa GetPessoaById(int Pessoaid)
         {
-           return _context.Pessoas.FirstOrDefault(x=> x.PessoaId == Pessoaid);
-            
+            return _context.Pessoas.FirstOrDefault(x => x.PessoaId == Pessoaid);
+
         }
 
-        public void Create(Pessoa pessoa) 
-        { 
-            _context.Pessoas.Add(pessoa);
-            
+        public void Create(Pessoa pessoa)
+        {
+            try
+            {
+                _context.Pessoas.Add
+                    (new Pessoa(pessoa.PessoaNome, pessoa.PessoaTelefone, pessoa.PessoaStatus));
+               _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
-       
+
         public void Update(Pessoa pessoa)
         {
-            _context.Update(pessoa);
-            Save();
+            try
+            {
+                _context.Update(pessoa);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Erro ao fazer a atualização. Tente novamente");
+            }
+           
         }
         public Pessoa Edit(int id)
         {
             var pessoa = GetPessoaById(id);
 
-			return pessoa;
+            return pessoa;
         }
 
         public void Delete(int id)
         {
             throw new NotImplementedException();
         }
-
-        public void Save()
+        public void InativarPessoa(int id)
         {
+            var pessoa = GetPessoaById(id);
+            pessoa.PessoaStatus = PessoaStatus.Inativo;
+            _context.Update(pessoa);
             _context.SaveChanges();
-
         }
 
        
