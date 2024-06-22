@@ -27,26 +27,27 @@ namespace ControlePortaria.Controllers
             return View(pessoas);
         }
         public IActionResult Create()
-		{
-            var dictionaryStatus = EnumExtensions.ToDictionary<PessoaStatus>();
-            ViewBag.DictionaryStatus = dictionaryStatus;
-            ViewBag.Modo = "Create";
+        {
 
             return View();
         }
         [HttpPost]
-        public IActionResult Create([Bind("PessoaNome,PessoaTelefone,Status")] Pessoa pessoa) // bind = dados que a req ira mapear
+        public IActionResult Create([Bind("PessoaNome,PessoaTelefone,PessoaStatus")] Pessoa pessoa) // bind = dados que a req ira mapear
         {
-         
-
-
-
-			if (ModelState.IsValid) // verifica se os dados estao validos
+            try
             {
-                _pessoaRepository.Create(pessoa);
-                _pessoaRepository.Save(); // Salvar alterações no banco de dados
+                if (ModelState.IsValid) // verifica se os dados estao validos
+                {
+                    _pessoaRepository.Create(pessoa);
+                    return RedirectToAction("List"); // Redirecionar para a lista de pessoas após o cadastro
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+               
+               string mensagem = ex.Message;
+                ViewData["ErrorMessage"] = mensagem;
 
-                return RedirectToAction("List"); // Redirecionar para a lista de pessoas após o cadastro
             }
             return View("Create", pessoa);
 
@@ -54,36 +55,42 @@ namespace ControlePortaria.Controllers
 
         [HttpGet]
         public IActionResult Edit(int id)
-		{
-			
-			var pessoa = _pessoaRepository.Edit(id);
+        {
 
-			return View(pessoa);	            
+            var pessoa = _pessoaRepository.Edit(id);
+
+            return View(pessoa);
         }
 
         [HttpPost]
-        public IActionResult Edit([Bind("PessoaNome,PessoaTelefone,PessoaId")] Pessoa pessoa)
+        public IActionResult Edit([Bind("PessoaNome,PessoaTelefone,PessoaId,PessoaStatus")] Pessoa pessoa)
         {
-           
-            var pessoaUpdate = _pessoaRepository.GetPessoaById(pessoa.PessoaId);
-            if(pessoaUpdate != null) 
+            try
             {
                 if (ModelState.IsValid)
                 {
-                    pessoaUpdate.PessoaNome = pessoa.PessoaNome;
-                    pessoaUpdate.PessoaTelefone = pessoa.PessoaTelefone;
-                    _pessoaRepository.Update(pessoaUpdate);
-                    return RedirectToAction("List");
+                    _pessoaRepository.Update(pessoa);
+     
                 }
-             
+            }
+            catch (Exception ex)
+            {
 
-			}
+                ViewData["ErrorMessage"] = ex.Message;
+            }
+           
+            return RedirectToAction("List");
+        }
 
-            return View();
+        [HttpPost]
+        public IActionResult InativarPessoa(int id)
+        {
+            _pessoaRepository.InativarPessoa(id);
+            return RedirectToAction("List");
         }
 
 
 
 
-	}
+    }
 }
