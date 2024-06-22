@@ -8,13 +8,17 @@ namespace ControlePortaria.Models.Enums
     {
         public static string GetDescription(this Enum value) 
         {
-            if(value != null && value.Equals(0))
+            if(value != null && (int)Convert.ToInt32(value) != 0)
             { 
             var field = value.GetType().GetField(value.ToString());
             var attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
             return attribute == null ? value.ToString() : attribute.Description;
             }
-            return "vazio";
+			else
+			{
+                return "vazio";
+            }
+            
         }
 
 		public static Dictionary<int, string> ToDictionary<TEnum>() where TEnum : Enum
