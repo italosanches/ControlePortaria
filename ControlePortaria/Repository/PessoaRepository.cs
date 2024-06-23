@@ -3,6 +3,7 @@ using ControlePortaria.Models;
 using ControlePortaria.Models.Enums;
 using ControlePortaria.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 namespace ControlePortaria.Repository
 {
     public class PessoaRepository : IPessoaRepository
@@ -43,10 +44,14 @@ namespace ControlePortaria.Repository
                 _context.Update(pessoa);
                 _context.SaveChanges();
             }
-            catch (Exception)
+            catch (DbUpdateException)
             {
 
-                throw new Exception("Erro ao fazer a atualização. Tente novamente");
+                throw new DbUpdateException("Erro ao fazer a atualização. Tente novamente");
+            }
+            catch(Exception) 
+            {
+                throw new Exception();
             }
            
         }
@@ -65,8 +70,20 @@ namespace ControlePortaria.Repository
         {
             var pessoa = GetPessoaById(id);
             pessoa.PessoaStatus = PessoaStatus.Inativo;
-            _context.Update(pessoa);
-            _context.SaveChanges();
+            try
+            {
+                _context.Update(pessoa);
+                _context.SaveChanges();
+            }
+            catch(DbUpdateException) 
+            {
+                throw new DbUpdateException();
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+
         }
 
        
