@@ -1,21 +1,12 @@
 ﻿@model ControlePortaria.Models.Pessoa
 @{
-	ViewData["Title"] = "Info Pessoa";
-	ViewBag.Modo = "Edit";
+    ViewData["Title"] = "Info Pessoa";
+    ViewBag.Modo = "Edit";
 }
 
 
 
-<!DOCTYPE html>
 
-<html>
-<head>
-	<meta name="viewport" content="width=device-width" />
-	<title>Informação da pessoa</title>
-</head>
-<body>
-	 <partial name="_PessoaResumo" for ="@Model" />
+<partial name="_PessoaResumo" for="@Model" />
 
 
-</body>
-</html>
