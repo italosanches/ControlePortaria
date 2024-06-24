@@ -36,9 +36,10 @@ namespace ControlePortaria.Models
         [Required(ErrorMessage = "Kilometragem é obrigatoria.")]
         [Precision(18, 2)]
         [Range(minimum: 0, maximum: 999999, ErrorMessage = "Valor deve ser maior que {1} e menor que {2}")]
-        [Display(Name = "Kilometragem atual")]
+        [Display(Name = "Kilometrage")]
         public decimal CarroKilometragem { get; set; }
 
+        [Display(Name = "Disponível ?")]
         public bool CarroDisponivel { get; set; } = true;
 
         [Required(ErrorMessage = "Fabricante é obrigatorio")]
