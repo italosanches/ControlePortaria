@@ -2,13 +2,13 @@
 {
     public enum Fabricante
     {
-        Volkswagen,
-        Toyota,
-        Hyundai,
+        BMW = 1,
+        Chevrolet,
         Ford,
         Honda,
-        BMW,
+        Hyundai,
         Mercedes,
-        Chevrolet
+        Toyota,
+        Volkswagen
     }
 }
