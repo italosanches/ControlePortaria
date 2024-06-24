@@ -20,7 +20,7 @@
                  <th class="col-2">
                     @Html.DisplayNameFor(model => model.Fabricante)
                 </th>
-                  <th class="col-1">
+                  <th class="col-2">
                     @Html.DisplayNameFor(model => model.CarroDisponivel)
                 </th>
                 <th class="col-2">
@@ -38,20 +38,21 @@
                         @carro.CarroModelo
                     </td>
                     <td>
-                        @carro.CarroKilometragem
+                    @carro.CarroKilometragem.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)
                     </td>
                      <td>
                          @carro.Fabricante.GetDescription()
                      </td>
                          <td>
-                        @carro.CarroDisponivel;
+                            @(carro.CarroDisponivel ? "Sim" : "Não")
                         </td>
                     <td>
-                        @* <div class="d-flex gap-3">
-                            <form asp-controller="Pessoas" asp-action="Edit" method="get">
-                                <input type="hidden" name="id" value="@pessoa.PessoaId" />
+                         <div class="d-flex gap-3">
+                            <form asp-controller="Carros" asp-action="Edit" method="get">
+                                <input type="hidden" name="id" value="@carro.CarroId" />
                                 <button type="submit" class="btn btn-secondary">Editar</button>
                             </form>
+                            @*
                             <form asp-controller="Pessoas" asp-action="InativarPessoa" method="post">
                                 <input type="hidden" name="id" value="@pessoa.PessoaId" />
                                 <button type="submit" class="btn btn-secondary">Inativar</button>
