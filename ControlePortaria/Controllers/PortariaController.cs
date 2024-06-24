@@ -1,0 +1,28 @@
+﻿using ControlePortaria.Models.Enums;
+using ControlePortaria.Repository.Interfaces;
+using ControlePortaria.ViewModel;
+using Microsoft.AspNetCore.Mvc;
+
+namespace ControlePortaria.Controllers
+{
+    public class PortariaController : Controller
+    {
+        private readonly IPessoaRepository _pessoaRepository;
+        private readonly ICarroRepository _carroRepository;
+
+        public PortariaController(IPessoaRepository pessoaRepository, ICarroRepository carroRepository)
+        {
+            _pessoaRepository = pessoaRepository;
+            _carroRepository = carroRepository;
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var portariaViewModel = new PortariaViewModel();
+            portariaViewModel.PessoaAtivas = _pessoaRepository.Pessoas.Where(pessoa => pessoa.PessoaStatus == PessoaStatus.Ativado);
+            portariaViewModel.CarrosAtivos = _carroRepository.Carros.Where(carro => carro.CarroDisponivel);
+            return View(portariaViewModel);
+        }
+    }
+}

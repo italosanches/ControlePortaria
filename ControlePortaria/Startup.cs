@@ -22,7 +22,7 @@ public class Startup
         services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); //configurando servico de conexao
         services.AddTransient<IPessoaRepository,PessoaRepository>();
         services.AddTransient<ICarroRepository,CarroRepository>();
-      
+        services.AddTransient<IPortariaRepository, PortariaRepository>();
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

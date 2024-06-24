@@ -11,7 +11,7 @@ namespace ControlePortaria.Context
         public DbSet<Pessoa> Pessoas { get; set; }
         public DbSet<Carro> Carros { get; set; }
 
-        public DbSet<Portaria> Portaria { get; set; }
+        public DbSet<Portaria> Portarias { get; set; }
 
 
     }
