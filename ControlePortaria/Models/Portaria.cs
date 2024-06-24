@@ -21,12 +21,12 @@ namespace ControlePortaria.Models
 
         [Required]
         [Precision(18, 2)]
-        [Range(minimum: 0, maximum: 999999, ErrorMessage = "Valor deve ser maior que {0} e menor que {1}")]
+        [Range(minimum: 0, maximum: 999999, ErrorMessage = "Valor deve ser maior que {1} e menor que {2}")]
         [Display(Description = "Kilometragem de saida")]
         public decimal KilometragemSaida => Carro.CarroKilometragem;
         
         [Precision(18, 2)]
-        [Range(minimum: 0, maximum: 999999, ErrorMessage = "Valor deve ser maior que {0} e menor que {1}")]
+        [Range(minimum: 0, maximum: 999999, ErrorMessage = "Valor deve ser maior que {1} e menor que {2}")]
         [Display(Description ="Kilometragem de chegada")]
         public decimal KilometragemChegada { get; set; }
 
