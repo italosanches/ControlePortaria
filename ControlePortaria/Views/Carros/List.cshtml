@@ -1,43 +1,53 @@
-﻿@model IEnumerable<Pessoa>
-
+﻿@model IEnumerable<Carro>;
 <!DOCTYPE html>
 
 
     <div class="container">
-        <form asp-controller="Pessoas" asp-action="Create" method="get">
-            <button class="btn btn-primary mb-2"type="submit">Criar pessoa</button>
+        <form asp-controller="Carros" asp-action="Create" method="get">
+            <button class="btn btn-primary mb-2"type="submit">Novo Carro</button>
         </form>
         <table class="table table-striped">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.PessoaNome)
+                   @Html.DisplayNameFor(model => model.CarroPlaca)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PessoaTelefone)
+                    @Html.DisplayNameFor(model => model.CarroModelo)
                 </th>
-                 <th class="col-1">
-                    @Html.DisplayNameFor(model => model.PessoaStatus)
+                 <th class="col-2">
+                    @Html.DisplayNameFor(model => model.CarroKilometragem)
+                </th>
+                 <th class="col-2">
+                    @Html.DisplayNameFor(model => model.Fabricante)
+                </th>
+                  <th class="col-1">
+                    @Html.DisplayNameFor(model => model.CarroDisponivel)
                 </th>
                 <th class="col-2">
 
                 </th>
             </tr>
 
-            @foreach (var pessoa in Model)
+            @foreach (var carro in Model)
             {
                 <tr>
-
                     <td>
-                        @pessoa.PessoaNome
+                        @carro.CarroPlaca
                     </td>
                     <td>
-                        @pessoa.PessoaTelefone
+                        @carro.CarroModelo
                     </td>
+                    <td>
+                        @carro.CarroKilometragem
+                    </td>
+                     <td>
+                         @carro.Fabricante.GetDescription()
+                     </td>
                          <td>
-                        @pessoa.PessoaStatus.GetDescription()
+                        @carro.CarroDisponivel;
                         </td>
                     <td>
-                        <div class="d-flex gap-3">
+                        @* <div class="d-flex gap-3">
                             <form asp-controller="Pessoas" asp-action="Edit" method="get">
                                 <input type="hidden" name="id" value="@pessoa.PessoaId" />
                                 <button type="submit" class="btn btn-secondary">Editar</button>
@@ -45,8 +55,8 @@
                             <form asp-controller="Pessoas" asp-action="InativarPessoa" method="post">
                                 <input type="hidden" name="id" value="@pessoa.PessoaId" />
                                 <button type="submit" class="btn btn-secondary">Inativar</button>
-                            </form>
-                        </div>
+                            </form> 
+                        </div>*@
 
                     </td>
                 </tr>

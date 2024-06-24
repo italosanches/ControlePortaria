@@ -21,7 +21,7 @@ public class Startup
     {
         services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); //configurando servico de conexao
         services.AddTransient<IPessoaRepository,PessoaRepository>();
-        services.AddTransient<ICarroRespotory,CarroRepository>();
+        services.AddTransient<ICarroRepository,CarroRepository>();
       
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
