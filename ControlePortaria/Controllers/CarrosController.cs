@@ -1,6 +1,7 @@
 ﻿using ControlePortaria.Models;
 using ControlePortaria.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControlePortaria.Controllers
 {
@@ -26,18 +27,62 @@ namespace ControlePortaria.Controllers
         [HttpPost]
         public IActionResult Create([Bind("CarroPlaca,CarroModelo,CarroKilometragem,Fabricante")] Carro carro)
         {
-            if(ModelState.IsValid) {
-                if (!_carroRepository.VerificarPlacaDuplicada(carro.CarroID, carro.CarroPlaca.ToUpper()))
+            if (ModelState.IsValid)
+            {
+                try
                 {
-                    _carroRepository.Create(carro);
-                    return RedirectToAction("List");
+                    if (!_carroRepository.VerificarPlacaDuplicada(carro.CarroId, carro.CarroPlaca.ToUpper()))
+                    {
+                        _carroRepository.Create(carro);
+                        return RedirectToAction("List");
 
+                    }
+                    else
+                    {
+                        ViewData["PlacaDuplicada"] = "Placa ja existe no banco de dados";
+                        return View(carro);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    ViewData["PlacaDuplicada"] = "Placa ja existe no banco de dados";
+
+                    ViewData["ErrorMessage"] = ex.Message;
+                }
+
+            }
+            return View(carro);
+
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            return View(_carroRepository.GetCarroById(id));
+        }
+
+        [HttpPost]
+        public IActionResult Edit([Bind("CarroId,CarroPlaca,CarroModelo,CarroKilometragem,Fabricante")] Carro carro)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (!_carroRepository.VerificarPlacaDuplicada(carro.CarroId, carro.CarroPlaca.ToUpper()))
+                    {
+                        _carroRepository.Update(carro);
+                        return RedirectToAction("List");
+                    }
                     return View(carro);
                 }
+            }
+            catch (DbUpdateException ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
+            catch (Exception ex)
+            {
+
+                ViewData["ErrorMessage"] = ex.Message;
             }
             return View(carro);
 

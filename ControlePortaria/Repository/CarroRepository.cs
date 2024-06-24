@@ -1,6 +1,7 @@
 ﻿using ControlePortaria.Context;
 using ControlePortaria.Models;
 using ControlePortaria.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Net.WebSockets;
 
 namespace ControlePortaria.Repository
@@ -13,7 +14,7 @@ namespace ControlePortaria.Repository
         {
             _context = context;
         }
-        public IEnumerable<Carro> Carros => _context.Carros.ToArray();
+        public IEnumerable<Carro> Carros => _context.Carros.AsNoTracking().ToArray();
 
         public void Create(Carro carro)
         {
@@ -37,12 +38,26 @@ namespace ControlePortaria.Repository
 
         public Carro GetCarroById(int id)
         {
-            return Carros.FirstOrDefault(x => x.CarroID == id);
+            return Carros.FirstOrDefault(x => x.CarroId == id);
         }
 
         public void Update(Carro carro)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Update(carro);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+
+                throw new DbUpdateException("Erro ao atualizar cadastro");
+            }
+            catch(Exception) 
+            {
+                throw new Exception();
+            }
+            
         }
 
         public bool VerificarPlacaDuplicada(int id, string placa)
@@ -52,10 +67,11 @@ namespace ControlePortaria.Repository
             if (carro == null)
             {
                 return false;
+              
             }
             else
             {
-                if (carro.CarroID == id)
+                if (carro.CarroId == id)
                 {
                     return false;
                 }
