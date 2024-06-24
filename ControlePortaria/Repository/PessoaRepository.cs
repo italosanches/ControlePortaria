@@ -14,7 +14,7 @@ namespace ControlePortaria.Repository
         {
             _context = context;
         }
-        public IEnumerable<Pessoa> Pessoas => _context.Pessoas.ToList();
+        public IEnumerable<Pessoa> Pessoas => _context.Pessoas.AsNoTracking().ToArray();
 
         public Pessoa GetPessoaById(int Pessoaid)
         {
