@@ -20,7 +20,7 @@ namespace ControlePortaria.Models
             CarroDisponivel = true;
             Fabricante = fabricante;
         }
-        public int CarroID { get; set; }
+        public int CarroId { get; set; }
 
         [Display(Name ="Placa")]
         [Required(ErrorMessage ="Placa é obrigatoria.")]
