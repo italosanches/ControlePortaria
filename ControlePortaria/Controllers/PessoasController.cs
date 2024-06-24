@@ -42,14 +42,24 @@ namespace ControlePortaria.Controllers
                     return RedirectToAction("List"); // Redirecionar para a lista de pessoas após o cadastro
                 }
             }
+            catch(DbUpdateException ex)
+            {
+                string mensagem = ex.Message;
+                ViewData["ErrorMessage"] = mensagem;
+            }
             catch (ArgumentNullException ex)
             {
                
-               string mensagem = ex.Message;
+                string mensagem = ex.Message;
                 ViewData["ErrorMessage"] = mensagem;
 
             }
-            return View("Create", pessoa);
+            catch(Exception ex)
+            {
+                string mensagem = ex.Message;
+                ViewData["ErrorMessage"] = mensagem;
+            }
+            return View(pessoa);
 
         }
 
@@ -70,8 +80,12 @@ namespace ControlePortaria.Controllers
                 if (ModelState.IsValid)
                 {
                     _pessoaRepository.Update(pessoa);
-     
+                    return RedirectToAction("List");
                 }
+            }
+            catch(DbUpdateException ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
             }
             catch (Exception ex)
             {
@@ -79,7 +93,7 @@ namespace ControlePortaria.Controllers
                 ViewData["ErrorMessage"] = ex.Message;
             }
            
-            return RedirectToAction("List");
+            return View(pessoa);
         }
 
         [HttpPost]
