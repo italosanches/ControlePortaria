@@ -30,6 +30,10 @@ namespace ControlePortaria.Repository
                     (new Pessoa(pessoa.PessoaNome, pessoa.PessoaTelefone, pessoa.PessoaStatus));
                _context.SaveChanges();
             }
+            catch(DbUpdateException)
+            {
+                throw new DbUpdateException("Erro ao criar pessoa,verifique");
+            }
             catch (Exception)
             {
 
