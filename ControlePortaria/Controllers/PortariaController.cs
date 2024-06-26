@@ -1,6 +1,5 @@
 ﻿using ControlePortaria.Models.Enums;
 using ControlePortaria.Repository.Interfaces;
-using ControlePortaria.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControlePortaria.Controllers
@@ -19,10 +18,11 @@ namespace ControlePortaria.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var portariaViewModel = new PortariaViewModel();
-            portariaViewModel.PessoaAtivas = _pessoaRepository.Pessoas.Where(pessoa => pessoa.PessoaStatus == PessoaStatus.Ativado);
-            portariaViewModel.CarrosAtivos = _carroRepository.Carros.Where(carro => carro.CarroDisponivel);
-            return View(portariaViewModel);
+            
+            ViewBag.PessoasAtivas = _pessoaRepository.Pessoas.Where(pessoa => pessoa.PessoaStatus == PessoaStatus.Ativado);
+            Console.WriteLine(ViewBag.PessoasAtivas);
+            ViewBag.CarrosDisponiveis = _carroRepository.Carros.Where(carro => carro.CarroDisponivel);
+            return View();
         }
     }
 }
