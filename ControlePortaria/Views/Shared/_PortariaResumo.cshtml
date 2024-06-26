@@ -1,0 +1,42 @@
+﻿@model Portaria;
+@{
+	IEnumerable<Pessoa> pessoas = ViewBag.PessoasAtivas;
+	IEnumerable<Carro> carros = ViewBag.CarrosDisponiveis;
+}
+
+
+<h4>@ViewData["Title"]</h4>
+<div class="row mt-5">
+	<div class="col-12"">
+	 <div class="row">
+			@if (ViewData["ErrorMessage"] != null)
+			{
+						<div class="alert alert-danger">
+					@ViewData["ErrorMessage"]
+						</div>
+			}
+	 </div>
+	   <form asp-action="@ViewBag.Modo" asp-controller="Carros" method="post">
+		 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		 <input hidden asp-for="PortariaId" />
+		 <div class="col-3">
+			 <div class="form-group">
+				 <label>Selecione uma pessoa</label>
+					@if (pessoas.Count() > 0)
+					{
+					<select asp-for="PessoaId" class="form-control"
+						asp-items="@(new SelectList(pessoas,"PessoaId","PessoaNome"))"> 
+					</select>
+					}
+					else
+					{
+					<select class="form-control" disabled>
+						<option value="">Nenhuma pessoa disponível</option>
+					</select>
+					}
+			</div>
+		 </div>
+		</form>
+	</div>
+
+</div>

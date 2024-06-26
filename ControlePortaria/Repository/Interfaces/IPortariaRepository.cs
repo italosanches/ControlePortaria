@@ -1,5 +1,5 @@
 ﻿using ControlePortaria.Models;
-using ControlePortaria.ViewModel;
+
 
 namespace ControlePortaria.Repository.Interfaces
 {
@@ -8,7 +8,7 @@ namespace ControlePortaria.Repository.Interfaces
         IEnumerable<Portaria> Portarias { get; }
 
         Portaria GetPortariaById(int Pessoaid);
-        public void Create(PortariaViewModel portaria);
+        public void Create(Portaria portaria);
 
         public void Update(Portaria portaria);
 

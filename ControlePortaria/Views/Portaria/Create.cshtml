@@ -1,35 +1,7 @@
-﻿@model ControlePortaria.ViewModel.PortariaViewModel
-
+﻿@model Portaria
 @{
-    ViewData["Title"] = "Criar Portaria";
+	ViewData["Title"] = "Criar Portaria";
+	ViewBag.Modo = "Create";
 }
 
-<h2>Criar Portaria</h2>
-
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="PessoaId">Selecione uma Pessoa:</label>
-        <select asp-for="PessoaId" class="form-control">
-            <option value="">Selecione uma pessoa...</option>
-            @foreach (var pessoa in Model.PessoaAtivas)
-            {
-                    <option value="@pessoa.PessoaId">@pessoa.PessoaNome</option>
-            }
-        </select>
-        <span asp-validation-for="PessoaId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="CarroId">Selecione um Carro:</label>
-        <select asp-for="CarroId" class="form-control">
-            <option value="">Selecione um carro...</option>
-            @foreach (var carro in Model.CarrosAtivos)
-            {
-                    <option value="@carro.CarroId">@carro.CarroPlaca</option>
-            }
-        </select>
-        <span asp-validation-for="CarroId" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Salvar</button>
-</form>
+<partial name="_PortariaResumo" for="@Model"/>

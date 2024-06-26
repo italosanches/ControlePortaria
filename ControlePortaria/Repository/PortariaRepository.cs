@@ -1,7 +1,7 @@
 ﻿using ControlePortaria.Context;
 using ControlePortaria.Models;
 using ControlePortaria.Repository.Interfaces;
-using ControlePortaria.ViewModel;
+
 using Microsoft.EntityFrameworkCore;
 using System.Net.WebSockets;
 
@@ -11,13 +11,10 @@ namespace ControlePortaria.Repository
 
     {
         private readonly AppDbContext _context;
-        public PortariaRepository(AppDbContext context)
-        {
-            _context = context;
-        }
+       
         public IEnumerable<Portaria> Portarias => _context.Portarias.AsNoTracking().ToArray();
 
-        public void Create(PortariaViewModel portaria)
+        public void Create(Portaria portaria)
         {
             try
             {
