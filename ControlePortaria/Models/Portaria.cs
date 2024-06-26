@@ -13,18 +13,18 @@ namespace ControlePortaria.Models
         }
         public Portaria(int pessoaId,int carroId,DateTime horaSaida,string destino)
         {
-            PessoaID = pessoaId;
-            CarroID = carroId;
+            PessoaId = pessoaId;
+            CarroId = carroId;
             HorarioSaida = horaSaida;
             Destino = destino;
         }
 
         [Key]
-        public int PortariaID { get; set; }
+        public int PortariaId { get; set; }
         [Required]
-        public int PessoaID { get; set; }
+        public int PessoaId { get; set; }
         [Required]
-        public int CarroID { get; set; }
+        public int CarroId { get; set; }
 
         [Required]
         [Display(Name ="Data e horario de saida.")]
