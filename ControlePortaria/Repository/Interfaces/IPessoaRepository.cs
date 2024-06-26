@@ -16,6 +16,7 @@ namespace ControlePortaria.Repository.Interfaces
         public void Delete(int id);
         public void InativarPessoa(int id);
 
-       
-    }
+        public IEnumerable<Pessoa> PessoasDisponiveis();
+
+	}
 }

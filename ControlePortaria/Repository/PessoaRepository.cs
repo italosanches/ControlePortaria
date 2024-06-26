@@ -28,9 +28,9 @@ namespace ControlePortaria.Repository
             {
                 _context.Pessoas.Add
                     (new Pessoa(pessoa.PessoaNome, pessoa.PessoaTelefone, pessoa.PessoaStatus));
-               _context.SaveChanges();
+                _context.SaveChanges();
             }
-            catch(DbUpdateException)
+            catch (DbUpdateException)
             {
                 throw new DbUpdateException("Erro ao criar pessoa,verifique");
             }
@@ -53,11 +53,11 @@ namespace ControlePortaria.Repository
 
                 throw new DbUpdateException("Erro ao fazer a atualização. Tente novamente");
             }
-            catch(Exception) 
+            catch (Exception)
             {
                 throw new Exception();
             }
-           
+
         }
         public Pessoa Edit(int id)
         {
@@ -79,7 +79,7 @@ namespace ControlePortaria.Repository
                 _context.Update(pessoa);
                 _context.SaveChanges();
             }
-            catch(DbUpdateException) 
+            catch (DbUpdateException)
             {
                 throw new DbUpdateException();
             }
@@ -89,7 +89,27 @@ namespace ControlePortaria.Repository
             }
 
         }
+        
+        public IEnumerable<Pessoa> PessoasDisponiveis() 
+        {
+			var pessoasAtivas = _context.Pessoas.AsNoTracking().Where(pessoa => pessoa.PessoaStatus == PessoaStatus.Ativado);
+			bool verificarPortarias = _context.Portarias.AsNoTracking().Any();
 
-       
-    }
+   //         if (verificarPortarias)
+			//{
+			//	return pessoasAtivas.AsNoTracking().Where(p => !_context.Portarias.Any(pt => pt.PessoaId == p.PessoaId &&
+			//															  pt.PortariaStatus == PortariaStatus.PortariaAberta)).ToList();
+			//}
+   //         else
+   //         {
+   //           return pessoasAtivas.ToList();
+
+			//}
+
+            return pessoasAtivas.ToList();
+		}
+
+
+
+	}
 }

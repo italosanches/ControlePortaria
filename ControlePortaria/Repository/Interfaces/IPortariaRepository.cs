@@ -16,6 +16,6 @@ namespace ControlePortaria.Repository.Interfaces
 
         public void RegistrarChegada(int id);
 
-       
-    }
+
+	}
 }

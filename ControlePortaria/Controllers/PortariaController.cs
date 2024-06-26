@@ -18,9 +18,7 @@ namespace ControlePortaria.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            
-            ViewBag.PessoasAtivas = _pessoaRepository.Pessoas.Where(pessoa => pessoa.PessoaStatus == PessoaStatus.Ativado);
-            Console.WriteLine(ViewBag.PessoasAtivas);
+            ViewBag.PessoasAtivas = _pessoaRepository.PessoasDisponiveis();
             ViewBag.CarrosDisponiveis = _carroRepository.Carros.Where(carro => carro.CarroDisponivel);
             return View();
         }

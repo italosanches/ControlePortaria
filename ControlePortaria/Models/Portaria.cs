@@ -1,4 +1,5 @@
-﻿using ControlePortaria.Repository;
+﻿using ControlePortaria.Models.Enums;
+using ControlePortaria.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,6 +18,7 @@ namespace ControlePortaria.Models
             CarroId = carroId;
             HorarioSaida = horaSaida;
             Destino = destino;
+            PortariaStatus = PortariaStatus.PortariaAberta;
         }
 
         [Key]
@@ -51,8 +53,11 @@ namespace ControlePortaria.Models
         [MaxLength(50,ErrorMessage ="Tamanho deve ser menor que 50 caracteres.")]
         public string Destino { get; set; }
 
+        public PortariaStatus PortariaStatus { get; set; }
+
         [Required]
-        public virtual Pessoa Pessoa{ get; set; }
+		[ForeignKey("PessoaId")]
+		public virtual Pessoa Pessoa{ get; set; }
 
         [Required]
         public virtual Carro Carro { get; set; }

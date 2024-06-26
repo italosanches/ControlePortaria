@@ -16,7 +16,7 @@
 						</div>
 			}
 	 </div>
-	   <form asp-action="@ViewBag.Modo" asp-controller="Carros" method="post">
+	   <form asp-action="@ViewBag.Modo" asp-controller="Portaria" method="post">
 		 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 		 <input hidden asp-for="PortariaId" />
 		 <div class="col-3">
@@ -25,7 +25,7 @@
 					@if (pessoas.Count() > 0)
 					{
 					<select asp-for="PessoaId" class="form-control"
-						asp-items="@(new SelectList(pessoas,"PessoaId","PessoaNome"))"> 
+								asp-items="@(new SelectList( ViewBag.PessoasAtivas,"PessoaId","PessoaNome"))">
 					</select>
 					}
 					else
