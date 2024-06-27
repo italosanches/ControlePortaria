@@ -1,42 +1,126 @@
 ﻿@model Portaria;
 @{
-	IEnumerable<Pessoa> pessoas = ViewBag.PessoasAtivas;
-	IEnumerable<Carro> carros = ViewBag.CarrosDisponiveis;
+    IEnumerable<Pessoa> pessoas = ViewBag.PessoasAtivas;
+    IEnumerable<Carro> carros = ViewBag.CarrosDisponiveis;
 }
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <h4>@ViewData["Title"]</h4>
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="row">
+                @if (ViewData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @ViewData["ErrorMessage"]
+                    </div>
+                }
+            </div>
+            <form asp-action="@ViewBag.Modo" asp-controller="Portaria" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input hidden asp-for="PortariaId" />
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label>Pessoa</label>
+                            @if (pessoas.Count() > 0)
+                            {
+                                <select class="form-control"
+                                        asp-items="@(new SelectList(pessoas, "PessoaId", "PessoaNome"))">
+                                </select>
+                            }
+                            else
+                            {
+                                <select class="form-control" disabled>
+                                    <option value="">Nenhuma pessoa disponível</option>
+                                </select>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form">
+                            <label>Carro</label>
+                            @if (carros.Count() > 0)
+                            {
+                                <select class="form-control" id="carroSelect">
+                                    @foreach (Carro carro in carros)
+                                    {
+                                        <option value="@carro.CarroId" data-km="@carro.CarroKilometragem">@carro.CarroPlaca - @carro.CarroModelo</option>
+                                    }
+                                </select>
+                            }
+                            else
+                            {
+                                <select class="form-control" disabled>
+                                    <option value="">Não há carros disponíveis</option>
+                                </select>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form">
+                            <label>Data/Hora Saida</label>
+                            <input asp-for="HorarioSaida" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form">
+                            <label>KM Saida</label>
+                            <input asp-for="KilometragemSaida" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form">
+                            <label>Destino</label>
+                            <input asp-for="Destino" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form">
+                            <label>Data/Hora Saida</label>
+                            <input asp-for="HorarioSaida" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <input class="btn-primary" type="submit" value="Cadastrar" asp-route-id="" />
+                </div>
+            </form>
+        </div>
+    </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            console.log('DOM totalmente carregado e analisado'); // Verifique se isso é exibido
+             const carroSelect = document.getElementById('carroSelect');
+            // Função para manipular a seleção do carro
+            function handleCarSelection() {
+                const carroSelect = document.getElementById('carroSelect');
+                if (carroSelect) {
+                    const selectedCarId = carroSelect.value;
+                    const selectedCarKm = carroSelect.options[carroSelect.selectedIndex].getAttribute('data-km');
+                    console.log(carroselect)
+                    // Exiba os valores no console
+                    console.log('Carro selecionado:', selectedCarId);
+                    console.log('Quilometragem:', selectedCarKm);
+                } else {
+                    console.error('Elemento #carroSelect não encontrado.');
+                }
+            }
 
-<h4>@ViewData["Title"]</h4>
-<div class="row mt-5">
-	<div class="col-12"">
-	 <div class="row">
-			@if (ViewData["ErrorMessage"] != null)
-			{
-						<div class="alert alert-danger">
-					@ViewData["ErrorMessage"]
-						</div>
-			}
-	 </div>
-	   <form asp-action="@ViewBag.Modo" asp-controller="Portaria" method="post">
-		 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-		 <input hidden asp-for="PortariaId" />
-		 <div class="col-3">
-			 <div class="form-group">
-				 <label>Selecione uma pessoa</label>
-					@if (pessoas.Count() > 0)
-					{
-					<select asp-for="PessoaId" class="form-control"
-								asp-items="@(new SelectList( ViewBag.PessoasAtivas,"PessoaId","PessoaNome"))">
-					</select>
-					}
-					else
-					{
-					<select class="form-control" disabled>
-						<option value="">Nenhuma pessoa disponível</option>
-					</select>
-					}
-			</div>
-		 </div>
-		</form>
-	</div>
-
-</div>
+            // Adicione um ouvinte de evento para o <select>
+            const carroSelect = document.getElementById('carroSelect');
+            if (carroSelect) {
+                carroSelect.addEventListener('change', handleCarSelection);
+                console.log('Evento de mudança adicionado ao #carroSelect'); // Verifique se isso é exibido
+            } else {
+                console.error('Elemento #carroSelect não encontrado.');
+            }
+        });
+    </script>
+</body>
+</html>

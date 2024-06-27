@@ -26,8 +26,7 @@ namespace ControlePortaria.Repository
         {
             try
             {
-                _context.Pessoas.Add
-                    (new Pessoa(pessoa.PessoaNome, pessoa.PessoaTelefone, pessoa.PessoaStatus));
+                _context.Pessoas.Add(pessoa);
                 _context.SaveChanges();
             }
             catch (DbUpdateException)
@@ -93,23 +92,19 @@ namespace ControlePortaria.Repository
         public IEnumerable<Pessoa> PessoasDisponiveis() 
         {
 			var pessoasAtivas = _context.Pessoas.AsNoTracking().Where(pessoa => pessoa.PessoaStatus == PessoaStatus.Ativado);
+            //var x = _context.Portarias.AsNoTracking().Include(p => p.Pessoa).Where(p => p.Pessoa.PessoaStatus == PessoaStatus.Ativado).
+            //                                                  Where(p=>p.PortariaStatus == PortariaStatus.PortariaFinalizada).ToList();
 			bool verificarPortarias = _context.Portarias.AsNoTracking().Any();
 
-   //         if (verificarPortarias)
-			//{
-			//	return pessoasAtivas.AsNoTracking().Where(p => !_context.Portarias.Any(pt => pt.PessoaId == p.PessoaId &&
-			//															  pt.PortariaStatus == PortariaStatus.PortariaAberta)).ToList();
-			//}
-   //         else
-   //         {
-   //           return pessoasAtivas.ToList();
-
-			//}
-
-            return pessoasAtivas.ToList();
+            if (verificarPortarias)
+            {
+                return pessoasAtivas.AsNoTracking().Where(p => !_context.Portarias.Any(pt => pt.PessoaId == p.PessoaId &&
+                                                                          pt.PortariaStatus == PortariaStatus.PortariaAberta)).ToList();
+            }
+            else
+            {
+                return pessoasAtivas.ToList();
+            }
 		}
-
-
-
 	}
 }

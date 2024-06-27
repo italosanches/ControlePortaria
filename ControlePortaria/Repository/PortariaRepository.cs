@@ -11,8 +11,13 @@ namespace ControlePortaria.Repository
 
     {
         private readonly AppDbContext _context;
-       
-        public IEnumerable<Portaria> Portarias => _context.Portarias.AsNoTracking().ToArray();
+
+		public PortariaRepository(AppDbContext context)
+		{
+			_context = context;
+		}
+
+		public IEnumerable<Portaria> Portarias => _context.Portarias.AsNoTracking().ToArray();
 
         public void Create(Portaria portaria)
         {

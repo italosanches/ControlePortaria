@@ -1,5 +1,6 @@
 ﻿using ControlePortaria.Context;
 using ControlePortaria.Models;
+using ControlePortaria.Models.Enums;
 using ControlePortaria.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Net.WebSockets;
@@ -81,6 +82,19 @@ namespace ControlePortaria.Repository
                 }
             }
 
+        }
+
+        public IEnumerable<Carro> CarrosDisponiveis() 
+        {
+            var carrosDisponiveis = _context.Carros.AsNoTracking().Where(c => c.CarroDisponivel);
+            var portariaExistentes = _context.Portarias.AsNoTracking().Any();
+
+            if(portariaExistentes) 
+            {
+                return carrosDisponiveis.AsNoTracking().Where(p => !_context.Portarias.Any(pt => p.CarroId == pt.CarroId && pt.PortariaStatus == PortariaStatus.PortariaAberta)).ToList();
+                
+            }
+            return carrosDisponiveis;
         }
 
     }
